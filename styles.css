@@ -30,8 +30,17 @@ a:visited {
     display: none;
 }
 
+#gif {
+    width: 40vw;
+    margin: auto;
+    text-align: center;
+}
+
 img {
     border-radius: 5%;
+    overflow: hidden;
+    perspective: 1px;
+    margin: 0.5em;
 }
 
 .footer {
@@ -77,5 +86,8 @@ footer {
     }
     #form {
         width: 80vw;
+    }
+    #gif {
+        width: 60vw;
     }
 }

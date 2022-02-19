@@ -8,6 +8,16 @@ async function GetWeatherData(location) {
     }
 }
 
+async function GetGif(query) {
+    let apistring = "https://api.giphy.com/v1/gifs/translate?api_key=NgfxIJlXTBpkrkfy42MZsfM5zJB1QNQb&s=" + query;
+    try {
+        const response = await fetch(apistring, {mode: "cors"});
+        return response.json();
+    } catch(error) {
+        console.error(`Error. For reference: "${error}"`);
+    }
+}
+
 function MainFunction(location, forc) {
     GetWeatherData(location).then(WeatherData => {
         console.log(WeatherData);
@@ -43,6 +53,16 @@ function MainFunction(location, forc) {
         AddToDOM('tempmax', tempmax);
         let displayarea = document.getElementById('weatherdata');
         displayarea.classList.remove('invisible');
+        GetGif(weatherMain).then(returnvalue => {
+            console.log(returnvalue);
+            let source = returnvalue.data.images.downsized.url;
+            let gifarea = document.getElementById('gif');
+            let image = document.createElement('img');
+            image.classList.add('gif');
+            image.src = source;
+            gifarea.appendChild(image);
+            gifarea.classList.remove('invisible');
+        });
     });
 }
 
@@ -58,6 +78,10 @@ function EmptyResults() {
     const results = document.querySelectorAll('.result');
     results.forEach(result => {
     result.remove();
+    });
+    const gifs = document.querySelectorAll('.gif');
+    gifs.forEach(gif => {
+    gif.remove();
     });
 }
 
